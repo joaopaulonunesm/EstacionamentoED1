@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class estacionamento {
 
@@ -38,6 +37,10 @@ public class estacionamento {
 	static JPanel panel3piso = new JPanel();
 
 	static int[][] vagas = new int[3][18];
+
+	static int contador = 54;
+	static int diferenca = 54;
+	static JLabel lbContador = new JLabel("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador));
 
 	public static void main(String[] args) {
 
@@ -73,6 +76,10 @@ public class estacionamento {
 		telaMenu.add(btSaiu);
 		btSaiu.setBounds(480, 110, 200, 70);
 
+		telaMenu.add(lbContador);
+		lbContador.setBounds(280, 300, 600, 600);
+		lbContador.setFont(new Font("Arial", Font.BOLD, 20));
+		
 		primeiroPiso();
 		segundoPiso();
 		terceiroPiso();
@@ -204,9 +211,7 @@ public class estacionamento {
 			public void actionPerformed(ActionEvent e) {
 
 				sorteioEntrada();
-
-				// forControle();
-
+				
 			}
 		});
 	}
@@ -219,8 +224,7 @@ public class estacionamento {
 			public void actionPerformed(ActionEvent e) {
 
 				sorteioSaida();
-
-				forControle();
+				telaMenu.repaint();
 
 			}
 		});
@@ -230,29 +234,34 @@ public class estacionamento {
 
 		int piso = (int) (Math.random() * 3);
 		int vaga = (int) (Math.random() * 18);
-		System.out.println("Andar: " + (piso + 1) + " Vaga: " + (vaga + 1));
 
-		if (vagas[piso][vaga] == 1) {
+		if (contador > 0) {
+			if (vagas[piso][vaga] == 1) {
 
-			sorteioEntrada();
-			JOptionPane.showMessageDialog(null, "Vaga(s) ja esta sendo Ocupada");
-
-		} else {
-			vagas[piso][vaga] = 1;
-
-			if (piso == 0) {
-
-				((DefaultTableModel) table1piso.getModel()).setValueAt("OCUPADO", vaga, 1);
-
-			} else if (piso == 1) {
-
-				((DefaultTableModel) table2piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+				sorteioEntrada();
 
 			} else {
+				vagas[piso][vaga] = 1;
+				contador = contador - 1;
 
-				((DefaultTableModel) table3piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+				if (piso == 0) {
+
+					((DefaultTableModel) table1piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+
+				} else if (piso == 1) {
+
+					((DefaultTableModel) table2piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+
+				} else {
+
+					((DefaultTableModel) table3piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+
+				}
 
 			}
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Todas as vagas estão ocupadas");
 
 		}
 
@@ -262,26 +271,36 @@ public class estacionamento {
 
 		int piso = (int) (Math.random() * 3);
 		int vaga = (int) (Math.random() * 18);
-		System.out.println("Andar: " + (piso + 1) + " Vaga: " + (vaga + 1));
 
-		if (vagas[piso][vaga] == 0) {
+		if (contador < 54) {
+			if (vagas[piso][vaga] == 0) {
 
-			sorteioSaida();
+				sorteioSaida();
 
-		} else if (vagas[piso][vaga] == 1) {
-			JOptionPane.showMessageDialog(null, "Vaga Liberada");
-			vagas[piso][vaga] = 0;
-		}
+			} else if (vagas[piso][vaga] == 1) {
+				JOptionPane.showMessageDialog(null, "Vaga Liberada");
+				vagas[piso][vaga] = 0;
+				contador = contador + 1;
 
-	}
+				if (piso == 0) {
 
-	static void forControle() {
+					((DefaultTableModel) table1piso.getModel()).setValueAt("LIVRE", vaga, 1);
 
-		for (int i = 0; i < vagas.length; i++) {
-			System.out.println("Vagas do " + (i + 1) + "º Andar: ");
-			for (int j = 0; j < vagas[i].length; j++) {
-				System.out.println("Vaga " + (j + 1) + ": " + vagas[i][j]);
+				} else if (piso == 1) {
+
+					((DefaultTableModel) table2piso.getModel()).setValueAt("LIVRE", vaga, 1);
+
+				} else {
+
+					((DefaultTableModel) table3piso.getModel()).setValueAt("LIVRE", vaga, 1);
+
+				}
+
 			}
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Todas as vagas estão livres");
+
 		}
 
 	}
