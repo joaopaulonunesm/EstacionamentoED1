@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,10 +36,12 @@ public class estacionamento {
 	static JPanel panel3piso = new JPanel();
 
 	static int[][] vagas = new int[3][18];
+	static JPanel[][] colorirVagas = new JPanel[3][54];
 
 	static int contador = 54;
 	static int diferenca = 54;
 	static JLabel lbContador = new JLabel("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador));
+	static String tipoVaga;
 
 	public static void main(String[] args) {
 
@@ -79,10 +80,49 @@ public class estacionamento {
 		telaMenu.add(lbContador);
 		lbContador.setBounds(280, 300, 600, 600);
 		lbContador.setFont(new Font("Arial", Font.BOLD, 20));
-		
+
 		primeiroPiso();
 		segundoPiso();
 		terceiroPiso();
+		criandoPanels();
+
+	}
+
+	static void criandoPanels() {
+
+		int pos0 = 271;
+		int pos1 = 271;
+		int pos2 = 271;
+
+		for (int i = 0; i < 54; i++) {
+
+			if (i <= 17) {
+
+				colorirVagas[0][i] = new JPanel();
+				telaMenu.add(colorirVagas[0][i]);
+				colorirVagas[0][i].setBounds(85, pos0, 15, 15);
+				colorirVagas[0][i].setBackground(Color.GREEN);
+				pos0 = pos0 + 16;
+
+			} else if (i > 17 && i <= 35) {
+
+				colorirVagas[1][i] = new JPanel();
+				telaMenu.add(colorirVagas[1][i]);
+				colorirVagas[1][i].setBounds(335, pos1, 15, 15);
+				colorirVagas[1][i].setBackground(Color.GREEN);
+				pos1 = pos1 + 16;
+
+			} else {
+
+				colorirVagas[2][i] = new JPanel();
+				telaMenu.add(colorirVagas[2][i]);
+				colorirVagas[2][i].setBounds(585, pos2, 15, 15);
+				colorirVagas[2][i].setBackground(Color.GREEN);
+				pos2 = pos2 + 16;
+
+			}
+
+		}
 
 	}
 
@@ -94,10 +134,9 @@ public class estacionamento {
 		lb1piso.setFont(new Font("Arial", Font.BOLD, 25));
 
 		table1piso.setLayout(null);
-		table1piso.setBackground(Color.GREEN);
 		table1piso.revalidate();
 		table1piso.setBounds(0, 0, 300, 500);
-		table1piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Status" }, 0) {
+		table1piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Tipo", "Status" }, 0) {
 			// bloqueando a edição das linhas
 			@Override
 			public boolean isCellEditable(int row, int col) {
@@ -117,11 +156,15 @@ public class estacionamento {
 
 		for (int i = 0; i < 18; i++) {
 			DefaultTableModel valores = (DefaultTableModel) table1piso.getModel();
-			valores.addRow(new Object[] { (i + 1), "LIVRE" });
-		}
+			if (i < 3) {
+				valores.addRow(new Object[] { (i + 1), "ESPECIAL", "LIVRE" });
+			} else if (i >= 3 && i <= 7) {
+				valores.addRow(new Object[] { (i + 1), "MOTO", "LIVRE" });
+			} else {
+				valores.addRow(new Object[] { (i + 1), "CARRO", "LIVRE" });
+			}
 
-		table1piso.getColumnModel().getColumn(0).setPreferredWidth(70);
-		table1piso.getColumnModel().getColumn(1).setPreferredWidth(100);
+		}
 
 	}
 
@@ -133,10 +176,9 @@ public class estacionamento {
 		lb2piso.setFont(new Font("Arial", Font.BOLD, 25));
 
 		table2piso.setLayout(null);
-		table2piso.setBackground(Color.GREEN);
 		table2piso.revalidate();
 		table2piso.setBounds(0, 0, 300, 500);
-		table2piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Status" }, 0) {
+		table2piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Tipo", "Status" }, 0) {
 			// bloqueando a edição das linhas
 			@Override
 			public boolean isCellEditable(int row, int col) {
@@ -156,11 +198,14 @@ public class estacionamento {
 
 		for (int i = 0; i < 18; i++) {
 			DefaultTableModel valores = (DefaultTableModel) table2piso.getModel();
-			valores.addRow(new Object[] { (i + 1), "LIVRE" });
+			if (i < 3) {
+				valores.addRow(new Object[] { (i + 1), "ESPECIAL", "LIVRE" });
+			} else if (i >= 3 && i <= 7) {
+				valores.addRow(new Object[] { (i + 1), "MOTO", "LIVRE" });
+			} else {
+				valores.addRow(new Object[] { (i + 1), "CARRO", "LIVRE" });
+			}
 		}
-
-		table2piso.getColumnModel().getColumn(0).setPreferredWidth(70);
-		table2piso.getColumnModel().getColumn(1).setPreferredWidth(100);
 
 	}
 
@@ -172,10 +217,9 @@ public class estacionamento {
 		lb3piso.setFont(new Font("Arial", Font.BOLD, 25));
 
 		table3piso.setLayout(null);
-		table3piso.setBackground(Color.GREEN);
 		table3piso.revalidate();
 		table3piso.setBounds(0, 0, 300, 500);
-		table3piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Status" }, 0) {
+		table3piso.setModel(new DefaultTableModel(new Object[] { "Nº da Vaga", "Tipo", "Status" }, 0) {
 			// bloqueando a edição das linhas
 			@Override
 			public boolean isCellEditable(int row, int col) {
@@ -195,11 +239,14 @@ public class estacionamento {
 
 		for (int i = 0; i < 18; i++) {
 			DefaultTableModel valores = (DefaultTableModel) table3piso.getModel();
-			valores.addRow(new Object[] { (i + 1), "LIVRE" });
+			if (i < 3) {
+				valores.addRow(new Object[] { (i + 1), "ESPECIAL", "LIVRE" });
+			} else if (i >= 3 && i <= 7) {
+				valores.addRow(new Object[] { (i + 1), "MOTO", "LIVRE" });
+			} else {
+				valores.addRow(new Object[] { (i + 1), "CARRO", "LIVRE" });
+			}
 		}
-
-		table3piso.getColumnModel().getColumn(0).setPreferredWidth(70);
-		table3piso.getColumnModel().getColumn(1).setPreferredWidth(100);
 
 	}
 
@@ -211,7 +258,7 @@ public class estacionamento {
 			public void actionPerformed(ActionEvent e) {
 
 				sorteioEntrada();
-				
+
 			}
 		});
 	}
@@ -224,7 +271,6 @@ public class estacionamento {
 			public void actionPerformed(ActionEvent e) {
 
 				sorteioSaida();
-				telaMenu.repaint();
 
 			}
 		});
@@ -243,18 +289,23 @@ public class estacionamento {
 			} else {
 				vagas[piso][vaga] = 1;
 				contador = contador - 1;
+				
+				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador)); 
 
 				if (piso == 0) {
 
-					((DefaultTableModel) table1piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+					table1piso.getModel().setValueAt("OCUPADO", vaga, 2);
+					colorirVagas[0][vaga].setBackground(Color.RED);
 
 				} else if (piso == 1) {
 
-					((DefaultTableModel) table2piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+					table2piso.getModel().setValueAt("OCUPADO", vaga, 2);
+					colorirVagas[1][vaga+18].setBackground(Color.RED);
 
 				} else {
 
-					((DefaultTableModel) table3piso.getModel()).setValueAt("OCUPADO", vaga, 1);
+					table3piso.getModel().setValueAt("OCUPADO", vaga, 2);
+					colorirVagas[2][vaga+36].setBackground(Color.RED);
 
 				}
 
@@ -281,18 +332,23 @@ public class estacionamento {
 				JOptionPane.showMessageDialog(null, "Vaga Liberada");
 				vagas[piso][vaga] = 0;
 				contador = contador + 1;
+				
+				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador)); 
 
 				if (piso == 0) {
 
-					((DefaultTableModel) table1piso.getModel()).setValueAt("LIVRE", vaga, 1);
+					table1piso.getModel().setValueAt("LIVRE", vaga, 2);
+					colorirVagas[0][vaga].setBackground(Color.GREEN);
 
 				} else if (piso == 1) {
 
-					((DefaultTableModel) table2piso.getModel()).setValueAt("LIVRE", vaga, 1);
+					table2piso.getModel().setValueAt("LIVRE", vaga, 2);
+					colorirVagas[1][vaga+18].setBackground(Color.GREEN);
 
 				} else {
 
-					((DefaultTableModel) table3piso.getModel()).setValueAt("LIVRE", vaga, 1);
+					table3piso.getModel().setValueAt("LIVRE", vaga, 2);
+					colorirVagas[2][vaga+36].setBackground(Color.GREEN);
 
 				}
 
