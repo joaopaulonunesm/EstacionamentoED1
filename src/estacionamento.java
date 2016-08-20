@@ -289,8 +289,8 @@ public class estacionamento {
 			} else {
 				vagas[piso][vaga] = 1;
 				contador = contador - 1;
-				
-				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador)); 
+
+				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador));
 
 				if (piso == 0) {
 
@@ -300,12 +300,12 @@ public class estacionamento {
 				} else if (piso == 1) {
 
 					table2piso.getModel().setValueAt("OCUPADO", vaga, 2);
-					colorirVagas[1][vaga+18].setBackground(Color.RED);
+					colorirVagas[1][vaga + 18].setBackground(Color.RED);
 
 				} else {
 
 					table3piso.getModel().setValueAt("OCUPADO", vaga, 2);
-					colorirVagas[2][vaga+36].setBackground(Color.RED);
+					colorirVagas[2][vaga + 36].setBackground(Color.RED);
 
 				}
 
@@ -329,11 +329,10 @@ public class estacionamento {
 				sorteioSaida();
 
 			} else if (vagas[piso][vaga] == 1) {
-				JOptionPane.showMessageDialog(null, "Vaga Liberada");
 				vagas[piso][vaga] = 0;
 				contador = contador + 1;
-				
-				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador)); 
+
+				lbContador.setText("Vagas Livres: " + contador + " Vagas Ocupadas: " + (diferenca - contador));
 
 				if (piso == 0) {
 
@@ -343,12 +342,12 @@ public class estacionamento {
 				} else if (piso == 1) {
 
 					table2piso.getModel().setValueAt("LIVRE", vaga, 2);
-					colorirVagas[1][vaga+18].setBackground(Color.GREEN);
+					colorirVagas[1][vaga + 18].setBackground(Color.GREEN);
 
 				} else {
 
 					table3piso.getModel().setValueAt("LIVRE", vaga, 2);
-					colorirVagas[2][vaga+36].setBackground(Color.GREEN);
+					colorirVagas[2][vaga + 36].setBackground(Color.GREEN);
 
 				}
 
