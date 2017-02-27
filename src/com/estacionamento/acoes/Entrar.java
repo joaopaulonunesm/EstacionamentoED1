@@ -6,10 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import com.estacionamento.PrimeiroAndar;
-import com.estacionamento.SegundoAndar;
-import com.estacionamento.TelaPrincipal;
-import com.estacionamento.TerceiroAndar;
+import com.estacionamento.visoes.PrimeiroAndar;
+import com.estacionamento.visoes.SegundoAndar;
+import com.estacionamento.visoes.TelaPrincipal;
+import com.estacionamento.visoes.TerceiroAndar;
 
 public class Entrar extends TelaPrincipal {
 

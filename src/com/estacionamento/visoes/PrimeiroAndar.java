@@ -1,4 +1,4 @@
-package com.estacionamento;
+package com.estacionamento.visoes;
 
 import java.awt.Font;
 
@@ -17,6 +17,7 @@ public class PrimeiroAndar extends TelaPrincipal {
 	static JPanel panel1piso = new JPanel();
 
 	@SuppressWarnings("serial")
+	public
 	static void gerarPrimeiroAndar() {
 
 		telaMenu.add(lb1piso);

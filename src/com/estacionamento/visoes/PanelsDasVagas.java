@@ -1,12 +1,12 @@
-package com.estacionamento;
+package com.estacionamento.visoes;
 
 import java.awt.Color;
 
 import javax.swing.JPanel;
 
-public class GerarPanels extends TelaPrincipal {
+public class PanelsDasVagas extends TelaPrincipal {
 
-	static void criandoPanels() {
+	public static void gerarPanelsDasVagas() {
 
 		int pos0 = 271;
 		int pos1 = 271;

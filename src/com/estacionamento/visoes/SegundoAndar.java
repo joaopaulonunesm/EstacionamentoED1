@@ -1,4 +1,4 @@
-package com.estacionamento;
+package com.estacionamento.visoes;
 
 import java.awt.Font;
 
@@ -17,6 +17,7 @@ public class SegundoAndar extends TelaPrincipal {
 	static JPanel panel2piso = new JPanel();
 
 	@SuppressWarnings("serial")
+	public
 	static void gerarSegundoAndar() {
 
 		telaMenu.add(lb2piso);
